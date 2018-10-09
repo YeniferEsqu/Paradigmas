@@ -5,9 +5,13 @@ import Archivo
 def insertar():
 	archivo = Archivo.Archivo()
 	ruta =archivo.abrirArchivo()
+	input = text.get("1.0",END)
 	if(ruta != None):
+		if(input != ''):
+			text.delete('1.0', END)
 		carga = archivo.cargarAlgoritmo(ruta)
 		text.insert(INSERT,carga)
+		
 		
 		
 #ventana
