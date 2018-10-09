@@ -1,0 +1,112 @@
+//Tarea #2 Ejercicio 3
+//Luis Felipe Castro Sánchez.
+//Universidad Nacional
+//Grupo 6pm
+
+//Alfabeto
+T = {a, b,c,d,A,B,C,D,Y,*,U,M}
+//Alfabeto de entrada
+I = {a,b,c,d}
+
+//Solución: Un marcador(M) recorre la cadena,  dejando a la par de cada letra su letra mayúscula, llegando hasta el //final,al encontrarse ahi , el programa realiza un intercambio constante entre letras mayusculas y minúsuculas, hasta //que no se le permita mas, de forma que ya quedaria  duplicada con letras mayúsculas, por lo tanto se convierten en //minúsuculas y se borra la M.
+
+// Pruebas realizadas;
+// 1. abdca -> abdcaabdca
+// 2. dcbaadbccdbcdbcd -> dcbaadbccdbcdbcddcbaadbccdbcdbcd
+// 3. dcccaabb -> dcccaabbdcccaabb
+// 4. dbdb -> dbdbdbdb
+// 5. cddbacba -> cddbacbacddbacba
+// 6. bbc -> bbcbbc
+// 7. ba -> baba
+// 8. b-> bb
+
+Ma -> aAM
+Mb -> bBM
+Mc -> cCM
+Md -> dDM
+
+
+//M -> $
+
+//Intercambios las letras Mayusculas con las minúsculas
+//A
+Aa -> aA
+Ab -> bA
+Ac -> cA
+Ad -> dA
+
+//B
+Ba -> aB
+Bb -> bB
+Bc -> cB
+Bd -> dB
+
+//C
+Ca -> aC
+Cb -> bC
+Cc -> cC
+Cd -> dC
+
+//D
+Da -> aD
+Db -> bD
+Dc -> cD
+Dd -> dD
+
+//Segunda Parte
+DM -> MD
+AM -> MA
+BM -> MB
+CM -> MC
+
+
+//
+MD -> dM
+MB -> bM
+MC -> cM
+MA -> aM
+
+//
+M ->. $
+
+
+//Inicio del Proceso
+$ -> M
+//$ -> *U
+
+
+//=========History========//
+//a
+//abcdacb
+//adcbdc
+//acsbcdaa
+//acabcdaa
+//acabcdab
+//acabcdadd
+//acabcdadc
+//abcba
+//dcbacbaddbac
+//bcdadcbabcaadaa
+//dacdaaaad
+//bbdcabca
+//caadbacd
+//adcbd
+//abccba
+//adcb
+//adcbdcab
+//dcbdcad
+//abcd
+//ab
+//abcda
+//abdca
+//dcbaadbccdbcdbcd
+//dcccaabb
+//dbdb
+//cddbacba
+//abdcba
+//bbc
+//bcabca
+//ba
+//b
+//c
+//d

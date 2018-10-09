@@ -1,0 +1,108 @@
+//Tarea #2 Ejercicio 3
+//Luis Felipe Castro Sánchez.
+//Universidad Nacional
+
+//Alfabeto
+T = {a, b,c,d,A,B,C,D,Y,*,U,M,v,e,r,o,f,l,s,i}
+//Alfabeto de entrada
+I = {a,b,c,d}
+
+//Reglas
+//Intercambio de elementos
+
+
+*a->a*
+*b->b*
+*c->c*
+*d->d*
+
+//Cambiamos el * por una letra que identifique el final
+* -> f
+
+//Verificamos el primero con el último si son iguales es palindromo
+iddf->.verdadero
+iaaf->.verdadero
+ibbf->.verdadero
+iccf->.verdadero
+
+iaf->.verdadero
+ibf->.verdadero
+icf->.verdadero
+idf->.verdadero
+
+if->.verdadero
+
+iabf->.falso
+iacf->.falso
+iadf->.false
+
+ibaf->.false
+ibcf->.falso
+ibdf->.falso
+
+icaf->.falso
+icbf->.falso
+icdf->.falso
+
+idaf->.falso
+idbf->.falso
+idcf->.falso
+
+//Eliminamos los elementos(i)
+iab->ia
+iaa->ia
+iac->ia
+iad->ia
+
+iba->ib
+ibb->ib
+ibc->ib
+ibd->ib
+
+ica->ic
+icb->ic
+icc->ic
+icd->ic
+
+ida->id
+idb->id
+idc->id
+idd->id
+
+//Inicio del Proceso
+$ -> i*
+
+
+
+
+
+//=========History========//
+//a
+//abcdacb
+//adcbdc
+//acsbcdaa
+//acabcdaa
+//acabcdab
+//acabcdadd
+//acabcdadc
+//abcba
+//dcbacbaddbac
+//bcdadcbabcaadaa
+//dacdaaaad
+//bbdcabca
+//caadbacd
+//adcbd
+//abccba
+//adcb
+//adcbdcab
+//dcbdcad
+//abcd
+//ab
+//b
+//c
+//cc
+//aa
+//aaaaa
+//aaa
+//aba
+//aab
