@@ -1,16 +1,14 @@
-T = {a, b,c,d,*}
-//Alfabeto de entrada
-I = {a,b,c,d}
-
-//Reglas
-//Intercambio de elementos
+%Agoritmo1
+#symbols 01234
+#vars |*$
 *a->a*
 *b->b*
 *c->c*
 *d->d*
 
-//Cuando llega al final lo borra
+%Cuando llega al final lo borra
 a* ->.$
 b* ->.$
 c* ->.$
-d* ->.$
+d* ->.$  
+  

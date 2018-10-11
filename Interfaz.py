@@ -1,5 +1,6 @@
 from tkinter import *
 import Archivo
+import Algoritmo
 
 #Insertar el algoritmo el la caja de texto
 def insertar():
@@ -11,7 +12,8 @@ def insertar():
 			text.delete('1.0', END)
 		carga = archivo.cargarAlgoritmo(ruta)
 		text.insert(INSERT,carga)
-		
+	else:
+		print("no escogio ruta")
 #Insertar las hileras de prueba
 def insertarHileras():
 	archivo = Archivo.Archivo()
@@ -22,8 +24,12 @@ def insertarHileras():
 			text2.delete('1.0', END)
 		carga = archivo.cargarAlgoritmo(ruta)
 		text2.insert(INSERT,carga)
-	    
 
+#guarda lo que tiene algoritmo y lo pasa a evaluar
+def guardarAlgortimo():
+	algoritmo = Algoritmo.Algoritmo()
+	datos = text.get('1.0', END)
+	algoritmo.CargarLista(datos)
 
 #ventana
 root = Tk()
@@ -43,7 +49,7 @@ boton1.place(x = 260, y = 100)
 boton2 = Button(root,text="Cargar Archivo", command=insertarHileras,  font=("Arial", 14),justify =CENTER, relief =RAISED)
 boton2.place(x = 630, y = 100)
 
-boton3 = Button(root,text="RUN", font=("Arial", 14),justify =CENTER, relief =RAISED)
+boton3 = Button(root,text="RUN", command=guardarAlgortimo, font=("Arial", 14),justify =CENTER, relief =RAISED)
 boton3.place(x = 780, y = 100)
 
 boton4 = Button(root,text="Guardar Salida", font=("Arial", 14 ), justify =CENTER, relief =RAISED)

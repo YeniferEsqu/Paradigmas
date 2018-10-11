@@ -1,11 +1,7 @@
-%Convertir un número binario en su equivalente unario 
+%Binario a unario
 #symbols 01
 #vars |
 
 0->0||
 1->0|
-0-> Λ.
-
-
-
-	   
+0-> P.

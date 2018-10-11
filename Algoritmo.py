@@ -1,16 +1,21 @@
 class Algoritmo:
-	def BinarioToUnario():
+	def CargarLista(self, algoritmo):
 		list=[]
-		carga = """%hola
+		carga = algoritmo
+#"""%hola
 #symbols 01
 #vars |
 #markers ABC
-1->0| 
-|0->0|| 
-0-> Λ."""
+#1->0| 
+#|0->0|| 
+#0-> Λ."""
 #guardar cada línea en carga
 		for line in carga.splitlines():
-			list.append(line)
+			
+			if(len(line) > 1 and line[0] is not ' '):
+				if(line[0] != '%'):
+				    list.append(line)
+		print(list)
 #saber el tamaño de la lista
 		list_len = len(list)
 #Listas para guardar las reglas, variables, simbolos
@@ -21,11 +26,10 @@ class Algoritmo:
 		lista5=[]
 		for x in range(list_len):
 			caracter = list[x]
-			if caracter[0] == '%':
-				print(" ")
+			car = caracter[0]
 			
 #si empieza con # y tiene symbols en la linea, lo guarda en la lista3
-			elif(caracter[0] == '#' and caracter.find("#symbols") is not -1):
+			if(caracter.find("#symbols") is not -1):
 				#print("Entro2")
 				simb = list[x].split(" ")
 				palabra = simb[1]
@@ -67,6 +71,3 @@ class Algoritmo:
 		print("Lista3", lista3)
 		print("Lista4", lista4)
 		print("Lista5", lista5)
-
-	BinarioToUnario()
-		
