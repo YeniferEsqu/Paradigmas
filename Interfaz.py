@@ -31,6 +31,10 @@ def guardarAlgortimo():
 	datos = text.get('1.0', END)
 	algoritmo.CargarLista(datos)
 
+def regla():
+	algoritmo = Algoritmo.Algoritmo()
+	algoritmo.ReglaTerminal()
+
 #ventana
 root = Tk()
 root.title('Algoritmos de Markov')
@@ -52,7 +56,7 @@ boton2.place(x = 630, y = 100)
 boton3 = Button(root,text="RUN", command=guardarAlgortimo, font=("Arial", 14),justify =CENTER, relief =RAISED)
 boton3.place(x = 780, y = 100)
 
-boton4 = Button(root,text="Guardar Salida", font=("Arial", 14 ), justify =CENTER, relief =RAISED)
+boton4 = Button(root,text="Guardar Salida", command=regla, font=("Arial", 14 ), justify =CENTER, relief =RAISED)
 boton4.place(x = 1100, y = 100)
 
 
