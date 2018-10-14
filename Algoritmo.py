@@ -1,10 +1,10 @@
 class Algoritmo:
 #variables globales
-	global lista1
-	global lista2
-	global lista3
-	global lista4
-	global lista5
+	global lista1 #reglas busqueda
+	global lista2 #reglas de sustitucion
+	global lista3 #simbolos
+	global lista4 #variables
+	global lista5 #marcadores
 
 	lista1=[]
 	lista2=[]
@@ -72,8 +72,46 @@ class Algoritmo:
 		#print("Lista3", lista3)
 		#print("Lista4", lista4)
 		#print("Lista5", lista5)
-
-		
 	
+	#metodo para agarrar lo del campo de texto y comprobar que esta en el alfabeto
+	def estaenlalista(self, cadena):
+		esta = 0
+		hil= cadena
+		res = 0
+		tamano = len(cadena)
+		for x in range(0,tamano):
+			if hil[x] in lista3:
+				esta = esta + 1
+
+		if(esta == tamano):
+			res = 1
+		
+		return res
+		
+
+	def evaluar(self,hilera):
+		cadena = hilera
+		lista=[]
+		listadef=[]
+		num=0
+		#inserta todo lo que tiene el campo de texto de las hileras en la lista
+		for line in cadena.splitlines():			
+			if(len(line) > 1 and line[0] is not ' '):
+					lista.append(line)
+		#print(lista)
+		
+		#si cada hilera esta en la lista la inserta, sino no
+		for x in lista:
+			if (self.estaenlalista(x) == 1):
+				listadef.append(x)
+				num = num + 1
+		print(listadef)
+
+
+	
+
+
+
+
 
 		

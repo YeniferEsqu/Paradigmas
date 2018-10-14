@@ -30,6 +30,12 @@ def guardarAlgortimo():
 	algoritmo = Algoritmo.Algoritmo()
 	datos = text.get('1.0', END)
 	algoritmo.CargarLista(datos)
+	datos2 = text2.get('1.0', END)
+	if len(datos2)> 1:
+		algoritmo.evaluar(datos2)
+	else:
+		print("Digite una hilera o escoja un archivo")
+
 
 def regla():
 	algoritmo = Algoritmo.Algoritmo()
