@@ -1,3 +1,4 @@
+import re
 class Algoritmo:
 #variables globales
 	global lista1 #reglas busqueda
@@ -5,7 +6,9 @@ class Algoritmo:
 	global lista3 #simbolos
 	global lista4 #variables
 	global lista5 #marcadores
+	global variablesUsadas  #lista auxiliar para almacenar las variable que utiliza una regla y su posicion en dicha cadena
 
+	variablesEnUso =[]
 	lista1=[]
 	lista2=[]
 	lista3=[]
@@ -107,8 +110,59 @@ class Algoritmo:
 				num = num + 1
 		print(listadef)
 
+	#metodo que busca si existe una etiqueta 
+	def buscaEtiqueta(self, regla):
+		etiqueta = re.match("[+?\w]+:" , regla)
+		if (etiqueta != None):
+			etiqueta = etiqueta.group()
+			etiqueta = re.sub(r":","",etiqueta)
+			return etiqueta
+		else:
+			return None
+		
+		
 
-	
+    #metodo que convierte una regla de busqueda en un patron de busqueda de expresiones regulares
+	def convertirPatron(self,etiqueta,regla):
+		variablesEnUso =[]
+		if (etiqueta != None):
+			regla = re.sub(etiqueta + ":","",regla,1)
+
+		tam = len(regla)
+		patron = ""
+		cont = 0
+		for x in range(0,tam):
+			if regla[x] == ' ': #si es un espacio no hace nada
+				continue
+			elif regla[x] == 'Λ':   #si es un Λ que simboliza inicio de cadena agrega el simbolo para que compare con el inicio
+				patron = patron + "^"  #agrega el simbolo para que compare con el inicio
+				cont = cont + 1
+			elif regla[x] in lista3:  #si esta en la lista de simbolos
+				if cont == 0:
+					patron = patron +"(" + regla[x] +")"
+				else:
+					patron = patron +"+(" + regla[x] +")"
+				cont = cont + 1
+			elif  regla[x] in lista4:  #si esta en la lista de variables agrega dicha variable a la lista auxiliar 
+				variablesUsadas.append(regla[x])
+				if cont == 0:
+					patron = patron +"\w"
+				else:
+					patron = patron +"+\w"
+				cont = cont + 1
+			elif regla[x] in lista5:   #si esta en la lista de marcadores
+				if cont == 0:
+					patron = patron +"(" + regla[x] +")"
+				else:
+					patron = patron +"+(" + regla[x] +")"
+				cont = cont + 1
+			else:
+				return None
+		return patron
+
+    #recibe un patron y una hilera y determina si existe alguna coincidencia
+	def buscarPatrones(self,patron,hilera):
+		
 
 
 
