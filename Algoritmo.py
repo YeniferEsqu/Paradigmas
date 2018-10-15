@@ -8,7 +8,7 @@ class Algoritmo:
 	global lista5 #marcadores
 	global variablesUsadas  #lista auxiliar para almacenar las variable que utiliza una regla y su posicion en dicha cadena
 
-	variablesEnUso =[]
+	variablesUsadas=[]
 	lista1=[]
 	lista2=[]
 	lista3=[]
@@ -112,7 +112,7 @@ class Algoritmo:
 
 	#metodo que busca si existe una etiqueta 
 	def buscaEtiqueta(self, regla):
-		etiqueta = re.match("[+?\w]+:" , regla)
+		etiqueta = re.match("\w[+?]+:" , regla)
 		if (etiqueta != None):
 			etiqueta = etiqueta.group()
 			etiqueta = re.sub(r":","",etiqueta)
@@ -124,7 +124,7 @@ class Algoritmo:
 
     #metodo que convierte una regla de busqueda en un patron de busqueda de expresiones regulares
 	def convertirPatron(self,etiqueta,regla):
-		variablesEnUso =[]
+		variablesUsadas =[]
 		if (etiqueta != None):
 			regla = re.sub(etiqueta + ":","",regla,1)
 
@@ -145,6 +145,8 @@ class Algoritmo:
 				cont = cont + 1
 			elif  regla[x] in lista4:  #si esta en la lista de variables agrega dicha variable a la lista auxiliar 
 				variablesUsadas.append(regla[x])
+				variablesUsadas.append(cont)
+				variablesUsadas.append("")
 				if cont == 0:
 					patron = patron +"\w"
 				else:
@@ -162,10 +164,39 @@ class Algoritmo:
 
     #recibe un patron y una hilera y determina si existe alguna coincidencia
 	def buscarPatrones(self,patron,hilera):
-		
+		if patron == "^":
+			if hilera == "":
+				return ""
+			else:
+				return None
+		patronEncontrado = re.search(patron,hilera)
+		if patronEncontrado != None:
+			patronEncontrado=patronEncontrado.group()
+			while True:
+				aux = patronEncontrado
+				patronEncontrado = patronEncontrado[1:]
+				patronEncontrado = re.search(patron,patronEncontrado)
+				if( patronEncontrado == None):
+					patronEncontrado = aux
+					break
+				else:
+					patronEncontrado = patronEncontrado.group()
+			tam = len(variablesUsadas)
+			for i in range(0,tam,3):
+				variablesUsadas[i+2] = patronEncontrado[variablesUsadas[i+1]]
+			
+			for i in range(0,tam,3):
+				for j in range(0,tam,3):
+					if i != j:
+						if variablesUsadas[i] == variablesUsadas[j]:
+							if variablesUsadas[i + 2] != variablesUsadas[j + 2]:
+								return None
+
+			return patronEncontrado
+		else:
+			return None
 
 
+				
+			
 
-
-
-		
