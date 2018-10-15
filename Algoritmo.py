@@ -17,6 +17,7 @@ class Algoritmo:
 
 #devuelve posicion de regla terminal	
 	def ReglaTerminal(self):
+		global lista2
 		for x in lista2:
 			if(x.find(".")== 1):
 				terminal = lista2.index(x)
@@ -25,6 +26,11 @@ class Algoritmo:
 	
 	
 	def CargarLista(self, algoritmo):
+		global lista1
+		global lista2
+		global lista3
+		global lista4
+		global lista5
 		list=[]
 		carga = algoritmo
 #guardar cada línea en carga excepto campos vacios y comentarios
@@ -78,6 +84,7 @@ class Algoritmo:
 	
 	#metodo para agarrar lo del campo de texto y comprobar que esta en el alfabeto
 	def estaenlalista(self, cadena):
+		global lista3
 		esta = 0
 		hil= cadena
 		res = 0
@@ -111,7 +118,7 @@ class Algoritmo:
 		print(listadef)
 
 	#metodo que busca si existe una etiqueta 
-	def buscaEtiqueta(self, regla):
+	def buscaEtiqueta(regla):
 		etiqueta = re.match("\w[+?]+:" , regla)
 		if (etiqueta != None):
 			etiqueta = etiqueta.group()
@@ -119,11 +126,15 @@ class Algoritmo:
 			return etiqueta
 		else:
 			return None
-		
-		
+	
+	
 
-    #metodo que convierte una regla de busqueda en un patron de busqueda de expresiones regulares
-	def convertirPatron(self,etiqueta,regla):
+	#metodo que convierte una regla de busqueda en un patron de busqueda de expresiones regulares
+	def convertirPatron(etiqueta,regla):
+		global lista3
+		global lista4
+		global lista5
+		global variablesUsadas
 		variablesUsadas =[]
 		if (etiqueta != None):
 			regla = re.sub(etiqueta + ":","",regla,1)
@@ -162,8 +173,9 @@ class Algoritmo:
 				return None
 		return patron
 
-    #recibe un patron y una hilera y determina si existe alguna coincidencia
-	def buscarPatrones(self,patron,hilera):
+	#recibe un patron y una hilera y determina si existe alguna coincidencia
+	def buscarPatrones(patron,hilera):
+		global variablesUsadas
 		if patron == "^":
 			if hilera == "":
 				return ""
@@ -191,6 +203,10 @@ class Algoritmo:
 						if variablesUsadas[i] == variablesUsadas[j]:
 							if variablesUsadas[i + 2] != variablesUsadas[j + 2]:
 								return None
+						else:
+							if variablesUsadas[i + 2] == variablesUsadas[j + 2]:
+								return None
+
 
 			return patronEncontrado
 		else:
