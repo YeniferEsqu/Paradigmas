@@ -7,7 +7,8 @@ class Algoritmo:
 	global lista4 #variables
 	global lista5 #marcadores
 	global variablesUsadas  #lista auxiliar para almacenar las variable que utiliza una regla y su posicion en dicha cadena
-
+	global etiquetaInicio
+	etiquetaInicio = None
 	variablesUsadas=[]
 	lista1=[]
 	lista2=[]
@@ -118,8 +119,8 @@ class Algoritmo:
 		print(listadef)
 
 	#metodo que busca si existe una etiqueta 
-	def buscaEtiqueta(regla):
-		etiqueta = re.match("\w[+?]+:" , regla)
+	def buscaEtiqueta(self,regla):
+		etiqueta = re.match("(.+?)+:" , regla)
 		if (etiqueta != None):
 			etiqueta = etiqueta.group()
 			etiqueta = re.sub(r":","",etiqueta)
@@ -127,10 +128,24 @@ class Algoritmo:
 		else:
 			return None
 	
+	#metodo que busca si existe una etiqueta al final de una regla 
+	# y la asigna a su correspondiente variable global
+	def buscaEtiquetaInicio(self,reglaSustitucion):
+		global etiquetaInicio
+		etiqueta = re.search("([(].+?[)])$" , reglaSustitucion)
+		if etiqueta != None:
+			etiqueta = etiqueta.group()
+			etiqueta = etiqueta[1:]
+			etiqueta = etiqueta[:len(etiqueta)-1]
+			etiquetaInicio = etiqueta
+			return etiqueta
+		else:
+			etiquetaInicio = None
+			return None
 	
-
+	
 	#metodo que convierte una regla de busqueda en un patron de busqueda de expresiones regulares
-	def convertirPatron(etiqueta,regla):
+	def convertirPatron(self,etiqueta,regla):
 		global lista3
 		global lista4
 		global lista5
@@ -159,9 +174,9 @@ class Algoritmo:
 				variablesUsadas.append(cont)
 				variablesUsadas.append("")
 				if cont == 0:
-					patron = patron +"\w"
+					patron = patron +"."
 				else:
-					patron = patron +"+\w"
+					patron = patron +"."
 				cont = cont + 1
 			elif regla[x] in lista5:   #si esta en la lista de marcadores
 				if cont == 0:
@@ -174,7 +189,7 @@ class Algoritmo:
 		return patron
 
 	#recibe un patron y una hilera y determina si existe alguna coincidencia
-	def buscarPatrones(patron,hilera):
+	def buscarPatrones(self,patron,hilera):
 		global variablesUsadas
 		if patron == "^":
 			if hilera == "":
@@ -206,12 +221,51 @@ class Algoritmo:
 						else:
 							if variablesUsadas[i + 2] == variablesUsadas[j + 2]:
 								return None
-
-
 			return patronEncontrado
 		else:
 			return None
 
+	#recibe el patron encontrado en el metodo anterior, la regla de sustitucion correspondiente 
+	#y la hilera a la que se va a aplicar. Devuelve la hilera con la sustitucion hecha
+	def sustituirRegla(self,patronEncontrado,reglaSustitucion,hilera):
+		global variablesUsadas
+		global lista3
+		global lista4
+		global lista5
+		etiqueta = self.buscaEtiquetaInicio(reglaSustitucion)
+		if etiqueta != None:
+			etiqueta = "("+etiqueta+")"
+			reglaSustitucion = re.sub(etiqueta,"",reglaSustitucion)
+		
+		if patronEncontrado == "":
+			return reglaSustitucion
+		
+		sustitucion = ""
+		tam = len(reglaSustitucion)
+		tam1 = len(variablesUsadas)
+
+		for i in range(0,tam):
+			bandera = True
+			for j in range(0,tam1,3):
+				if variablesUsadas[j] == reglaSustitucion[i]:
+					sustitucion = sustitucion + variablesUsadas[j+2]
+					bandera = False
+					break
+			if bandera:
+				if reglaSustitucion[i] in lista3 or reglaSustitucion[i] in lista4  or reglaSustitucion[i] in lista5:
+					sustitucion = sustitucion + reglaSustitucion[i]
+				else:
+					return None
+		
+		return re.sub(patronEncontrado,sustitucion,hilera,1)
+
+
+
+
+
+
+
+	
 
 				
 			
