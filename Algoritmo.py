@@ -194,10 +194,7 @@ class Algoritmo:
 	def buscarPatrones(self,patron,hilera):
 		global variablesUsadas
 		if patron == "^":
-			if hilera == "":
-				return ""
-			else:
-				return None
+			return patron
 		patronEncontrado = re.search(patron,hilera)
 		if patronEncontrado != None:
 			patronEncontrado=patronEncontrado.group()
@@ -224,7 +221,6 @@ class Algoritmo:
 							if variablesUsadas[i + 2] == variablesUsadas[j + 2]:
 								return None
 
-
 			return patronEncontrado
 		else:
 			return None
@@ -241,8 +237,8 @@ class Algoritmo:
 			etiqueta = "("+etiqueta+")"
 			reglaSustitucion = re.sub(etiqueta,"",reglaSustitucion)
 		
-		if patronEncontrado == "":
-			return reglaSustitucion
+		if patronEncontrado == "^":
+			return reglaSustitucion + hilera
 		
 		sustitucion = ""
 		tam = len(reglaSustitucion)
