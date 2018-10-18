@@ -18,8 +18,8 @@ class Algoritmo:
 	etiquetaInicio = None
 	variablesUsadas=[]
 	
-	lista1=["βX","XXβ","X"]
-	lista2=["XXβ","X.","βX"]
+	lista1=["P1: βX","P2: Xβ","P3: X"]
+	lista2=["Xβ (P1)","Λ.","βX (P1)"]
 	lista3=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9"]
 	lista4=["X"]
 	lista5=["β"]
@@ -126,7 +126,7 @@ class Algoritmo:
 
 	#metodo que busca si existe una etiqueta 
 	def buscaEtiqueta(self,regla):
-		etiqueta = re.match("\w[+?]+:" , regla)
+		etiqueta = re.match("(.+?)+:" , regla)
 		if (etiqueta != None):
 			etiqueta = etiqueta.group()
 			etiqueta = re.sub(r":","",etiqueta)
@@ -234,11 +234,9 @@ class Algoritmo:
 		global lista5
 		etiqueta = self.buscaEtiquetaInicio(reglaSustitucion)
 		if etiqueta != None:
-			etiqueta = "("+etiqueta+")"
+			etiqueta = "[(]"+etiqueta+"[)]"
 			reglaSustitucion = re.sub(etiqueta,"",reglaSustitucion)
 		
-		if patronEncontrado == "^":
-			return reglaSustitucion + hilera
 		
 		sustitucion = ""
 		tam = len(reglaSustitucion)
@@ -252,11 +250,14 @@ class Algoritmo:
 					bandera = False
 					break
 			if bandera:
-				if reglaSustitucion[i] in lista3 or reglaSustitucion[i] in lista4  or reglaSustitucion[i] in lista5 or reglaSustitucion[i] == '.':
-						if reglaSustitucion[i] != '.':
+				if reglaSustitucion[i] in lista3 or reglaSustitucion[i] in lista4  or reglaSustitucion[i] in lista5 or reglaSustitucion[i] == '.'or reglaSustitucion[i] == 'Λ' or reglaSustitucion[i] == ' ':
+						if reglaSustitucion[i] != '.' and reglaSustitucion[i] != 'Λ' and reglaSustitucion[i] != ' ':
 							sustitucion = sustitucion + reglaSustitucion[i]
 				else:
 					return None
+		
+		if patronEncontrado == "^":
+			return reglaSustitucion + sustitucion
 		
 		return re.sub(patronEncontrado,sustitucion,hilera,1)
 
@@ -271,7 +272,7 @@ class Algoritmo:
 		for i in range(0,tam):
 			etiqueta = self.buscaEtiqueta(lista1[i])
 			if etiquetaInicio != None:
-				if etiqueta == etiquetaInicio
+				if etiqueta == etiquetaInicio:
 					etiquetaInicio = None
 				else:
 					continue
