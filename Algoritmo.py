@@ -271,18 +271,16 @@ class Algoritmo:
 		restart = True
 		global terminal 
 		global sustitucion
+		global etiquetaInicio
 		for i in range(0,tam):
-			#print("Regla: ")
-			#print(lista1[i])
 			etiqueta = self.buscaEtiqueta(lista1[i])
-			#print("Etiqueta: ")
-			#print(etiqueta)
+			if etiquetaInicio != None:
+				if etiqueta == etiquetaInicio
+					etiquetaInicio = None
+				else:
+					continue
 			patron = self.convertirPatron(etiqueta,lista1[i])
-			#print("Patron: ")
-			#print(patron)
 			patronEncontrado = self.buscarPatrones(patron,hilera)
-			#print("Patron Encontrado: ")
-			#print(patronEncontrado)
 			if patronEncontrado != None:
 				print("Regla Sustitucion: ")
 				print(lista2[i])
