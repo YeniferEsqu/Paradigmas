@@ -8,6 +8,7 @@ class Algoritmo:
 	global lista3 #simbolos
 	global lista4 #variables
 	global lista5 #marcadores
+	global caracteresEspeciales
 	global listadef
 	global variablesUsadas  #lista auxiliar para almacenar las variable que utiliza una regla y su posicion en dicha cadena
 	global etiquetaInicio
@@ -15,6 +16,8 @@ class Algoritmo:
 	global terminal 
 	global sustitucion
 	global aplico
+
+	caracteresEspeciales = ["(",")","+",".","$","*","?","[","]","{","}","|"]
 	etiquetaInicio = None
 	variablesUsadas=[]
 	
@@ -23,6 +26,11 @@ class Algoritmo:
 	lista3=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9"]
 	lista4=["X"]
 	lista5=["β"]
+	#lista1=["(())","())","(()","()","(α","α)",")","(","αα","α" ]
+	#lista2=["()","α)","(α","VALIDO.","α","α","α","α","α","INVALIDO."]
+	#lista3=["(",")"]
+	#lista4=["I","N","V","A","L","I","D","O"]
+	#lista5=["α"]
 	listadef=[]
 	terminal = False
 	sustitucion=""
@@ -152,6 +160,7 @@ class Algoritmo:
 #metodo que convierte una regla de busqueda en un patron de busqueda de expresiones regulares
 	def convertirPatron(self,etiqueta,regla):
 		global variablesUsadas
+		global caracteresEspeciales
 		variablesUsadas =[]
 		if (etiqueta != None):
 			regla = re.sub(etiqueta + ":","",regla,1)
@@ -166,25 +175,16 @@ class Algoritmo:
 				patron = patron + "^"  #agrega el simbolo para que compare con el inicio
 				cont = cont + 1
 			elif regla[x] in lista3:  #si esta en la lista de simbolos
-				if cont == 0:
-					patron = patron +"(" + regla[x] +")"
-				else:
-					patron = patron +"+(" + regla[x] +")"
+				patron = patron +"[" + regla[x] +"]"
 				cont = cont + 1
 			elif  regla[x] in lista4:  #si esta en la lista de variables agrega dicha variable a la lista auxiliar 
 				variablesUsadas.append(regla[x])
 				variablesUsadas.append(cont)
 				variablesUsadas.append("")
-				if cont == 0:
-					patron = patron +"."
-				else:
-					patron = patron +"+."
+				patron = patron +"."
 				cont = cont + 1
 			elif regla[x] in lista5:   #si esta en la lista de marcadores
-				if cont == 0:
-					patron = patron +"(" + regla[x] +")"
-				else:
-					patron = patron +"+(" + regla[x] +")"
+				patron = patron +"[" + regla[x] +"]"
 				cont = cont + 1
 			else:
 				return None
@@ -193,6 +193,7 @@ class Algoritmo:
 #recibe un patron y una hilera y determina si existe alguna coincidencia
 	def buscarPatrones(self,patron,hilera):
 		global variablesUsadas
+		global caracteresEspeciales
 		if patron == "^":
 			return patron
 		patronEncontrado = re.search(patron,hilera)
@@ -220,14 +221,22 @@ class Algoritmo:
 						else:
 							if variablesUsadas[i + 2] == variablesUsadas[j + 2]:
 								return None
+			tam1 = len(patronEncontrado)
+			patronRetorno=""
+			for k in range(0,tam1):
+				if patronEncontrado[k] in caracteresEspeciales:
+					patronRetorno = patronRetorno + "["+patronEncontrado[k]+"]"
+				else:
+					patronRetorno = patronRetorno + patronEncontrado[k]
 
-			return patronEncontrado
+			return patronRetorno
 		else:
 			return None
 
 #recibe el patron encontrado en el metodo anterior, la regla de sustitucion correspondiente 
 #y la hilera a la que se va a aplicar. Devuelve la hilera con la sustitucion hecha
 	def sustituirRegla(self,patronEncontrado,reglaSustitucion,hilera):
+		global terminal
 		global variablesUsadas
 		global lista3
 		global lista4
@@ -253,12 +262,15 @@ class Algoritmo:
 				if reglaSustitucion[i] in lista3 or reglaSustitucion[i] in lista4  or reglaSustitucion[i] in lista5 or reglaSustitucion[i] == '.'or reglaSustitucion[i] == 'Λ' or reglaSustitucion[i] == ' ':
 						if reglaSustitucion[i] != '.' and reglaSustitucion[i] != 'Λ' and reglaSustitucion[i] != ' ':
 							sustitucion = sustitucion + reglaSustitucion[i]
+						if reglaSustitucion[i] == '.':
+							terminal = True
 				else:
 					return None
 		
 		if patronEncontrado == "^":
-			return reglaSustitucion + sustitucion
-		
+			return sustitucion + hilera
+		if patronEncontrado in caracteresEspeciales:
+			patronEncontrado = "["+patronEncontrado+"]"
 		return re.sub(patronEncontrado,sustitucion,hilera,1)
 
 #aplica las reglas 1 vez 
@@ -284,11 +296,11 @@ class Algoritmo:
 				print("Hilera Resultante: ")
 				sustitucion = self.sustituirRegla(patronEncontrado,lista2[i],hilera)
 				#print(sustitucion)
-				print("ReglaTerminal")
-				print(self.ReglaTerminal())
+				#print("ReglaTerminal")
+				#print(self.ReglaTerminal())
 				aplico = True
-				if(self.ReglaTerminal() == lista2[i]):
-					terminal = True
+				#if(self.ReglaTerminal() == lista2[i]):
+					#terminal = True
 				break
 		print("sustitucion  "+sustitucion)
 		return sustitucion
@@ -332,6 +344,10 @@ nop
 asd
 cvb"""
 
+#hilera = """((()))
+#(())
+#()))
+#((("""
 a.ListaaEvaluar(hilera)
 
 
