@@ -1,0 +1,24 @@
+%Triplicar numeros binarios
+#symbols 01+
+#vars x
+#markers αβγδ
+
+βα1->1βα
+βα0->0βα
+βα->β
+
+%Empezamos a multiplicar y acarrear, la γ representa el Accarreo
+0β->β0
+1β->γβ1
+1γβ->γγβ0
+0γβ->β1
+1γγβ->γγβ1
+0γγβ->γβ0
+
+%Cuando se unen la δ y la β, finaliza
+δγγβ->.10
+δγβ->.1
+δβ->.x
+
+%Establecemos el inicio del programa
+x -> xδβα

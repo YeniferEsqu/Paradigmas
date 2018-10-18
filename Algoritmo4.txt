@@ -1,6 +1,7 @@
 %Binario a unario
 #symbols 01
-#vars |
+#vars xy
+#markers |
 
 |0->0||
 1->0|

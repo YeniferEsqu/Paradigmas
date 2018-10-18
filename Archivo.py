@@ -1,9 +1,10 @@
 import easygui as eg
+import io
 
 class Archivo:
 #Para cargar el archivo 
 	def cargarAlgoritmo(self,ruta):
-		archivo = open(ruta, "r")
+		archivo = open(ruta, "r",encoding="utf-8")
 		linea= archivo.read()
 		return linea
 		
