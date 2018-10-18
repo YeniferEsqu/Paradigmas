@@ -2,13 +2,16 @@
 % Verifica la estructura de una hilera que contenga únicamente paréntesis, que se encuentren correctamente balanceados.  
  #symbols ()
 #vars INVALIDO
-#markers  αβ
+#markers  α
 
-( -> α
-) -> β
-αβ -> Λ
-Λ -> VALIDO.
-INV:  α -> Λ (INV)
-β -> Λ (INV)
-Λ -> INVALIDO.
+(()) -> ()
+()) ->α)
+(() ->(α
+() -> VALIDO.
+(α->α
+α)->α
+)->α
+(->α
+αα -> a
+α->INVALIDO
 
