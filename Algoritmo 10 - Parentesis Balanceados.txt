@@ -1,17 +1,18 @@
 ﻿% Algoritmo 10.
 % Verifica la estructura de una hilera que contenga únicamente paréntesis, que se encuentren correctamente balanceados.  
- #symbols ()
+#symbols ()
 #vars INVALIDO
-#markers  α
+#markers α
 
 (()) -> ()
 ()) ->α)
 (() ->(α
+()() -> ()
 () -> VALIDO.
 (α->α
 α)->α
 )->α
 (->α
-αα -> a
-α->INVALIDO
+αα -> α
+α->INVALIDO.
 

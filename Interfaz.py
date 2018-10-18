@@ -33,6 +33,9 @@ def guardarAlgortimo():
 	datos2 = text2.get('1.0', END)
 	if len(datos2)> 1:
 		algoritmo.evaluar(datos2)
+		salida = algoritmo.ListaaEvaluar()
+		text3.delete(1.0,END)
+		text3.insert(END,salida)
 	else:
 		print("Digite una hilera o escoja un archivo")
 

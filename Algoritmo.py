@@ -1,6 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
 import re
-
 class Algoritmo:
 #variables globales
 	global lista1 #reglas busqueda
@@ -16,16 +15,20 @@ class Algoritmo:
 	global terminal 
 	global sustitucion
 	global aplico
+	global Salida
 
+	Salida = ""
 	caracteresEspeciales = ["(",")","+",".","$","*","?","[","]","{","}","|"]
 	etiquetaInicio = None
 	variablesUsadas=[]
 	
-	lista1=["P1: βX","P2: Xβ","P3: X"]
-	lista2=["Xβ (P1)","Λ.","βX (P1)"]
-	lista3=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9"]
-	lista4=["X"]
-	lista5=["β"]
+	
+
+	#lista1=["P1: βX","P2: Xβ","P3: X"]
+	#lista2=["Xβ (P1)","Λ.","βX (P1)"]
+	#lista3=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9"]
+	#lista4=["X"]
+	#lista5=["β"]
 	#lista1=["(())","())","(()","()","(α","α)",")","(","αα","α" ]
 	#lista2=["()","α)","(α","VALIDO.","α","α","α","α","α","INVALIDO."]
 	#lista3=["(",")"]
@@ -52,8 +55,16 @@ class Algoritmo:
 		global lista3
 		global lista4
 		global lista5
+		lista1=[]
+		lista2=[]
+		lista3=[]
+		lista4=[]
+		lista5=[]
 		list=[]
 		carga = algoritmo
+		if re.match("\ufeff",carga) != None:
+			carga = re.sub("\ufeff","",carga,1)
+
 #guardar cada línea en carga excepto campos vacios y comentarios
 		for line in carga.splitlines():			
 			if(len(line) > 1 and line[0] is not ' '):
@@ -118,6 +129,7 @@ class Algoritmo:
 		cadena = hilera
 		lista=[]
 		global listadef
+		listadef = []
 		num=0
 		#inserta todo lo que tiene el campo de texto de las hileras en la lista
 		for line in cadena.splitlines():			
@@ -281,6 +293,7 @@ class Algoritmo:
 		global terminal 
 		global sustitucion
 		global etiquetaInicio
+		global Salida
 		for i in range(0,tam):
 			etiqueta = self.buscaEtiqueta(lista1[i])
 			if etiquetaInicio != None:
@@ -302,7 +315,12 @@ class Algoritmo:
 				#if(self.ReglaTerminal() == lista2[i]):
 					#terminal = True
 				break
-		print("sustitucion  "+sustitucion)
+		#print("sustitucion  "+sustitucion)
+		if sustitucion == None:
+			Salida = Salida + "HA OCURRIDO UN ERROR" + "\n"
+			terminal = True
+		else:
+			Salida = Salida + sustitucion + "\n"
 		return sustitucion
 		
 				
@@ -317,38 +335,43 @@ class Algoritmo:
 
 #la primera vez que entra cambia la hilera, luego agarra lo que tiene la variable global sustitucion y lo evalua para aplicar las reglas 
 	def CambiaHilera(self, hilera):
-		global sustitucion		
+		global sustitucion	
+		global Salida	
 		if(sustitucion==""):
+			Salida= Salida+"\n" + hilera +"\n"
 			sustitucion =self.recorrerHilera(hilera)
 		else:
 			sustitucion =self.recorrerHilera(sustitucion)
 
 #metodo que recorre la listaDefinidos y la evalua para aplicar las reglas
-	def ListaaEvaluar(self,hilera):
-		listaDefinidos = []
+	def ListaaEvaluar(self):
+		#listaDefinidos = []
 		global terminal 
 		global sustitucion
 		global aplico
-		listaDefinidos = self.evaluar(hilera)
-		for i in listaDefinidos:
+		global listadef
+		global Salida
+		#listaDefinidos = self.evaluar(hilera)
+		for i in listadef:
 			self.CambiaHilera(i)
 			#print(listaDefinidos)
 			print("\n")
 			terminal = False
 			sustitucion=""
 			aplico =False
+		return Salida
 		
-a = Algoritmo()
-hilera = """abc
-nop
-asd
-cvb"""
+#a = Algoritmo()
+#hilera = """abc
+#nop
+#asd
+#cvb"""
 
 #hilera = """((()))
 #(())
 #()))
 #((("""
-a.ListaaEvaluar(hilera)
+#a.ListaaEvaluar(hilera)
 
 
 	

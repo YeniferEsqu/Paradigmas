@@ -4,7 +4,7 @@
 #vars XY
 #markers β 
 
-XβY -> Xβ
+XβX -> Xβ
 XβY -> XYβ
 Xβ -> X.
 βX -> Xβ
