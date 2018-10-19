@@ -14,6 +14,7 @@ class Algoritmo:
 	global hileraSustituida
 	global terminal 
 	global sustitucion
+	global reglaAplicada
 	global aplico
 	global Salida
 
@@ -55,12 +56,14 @@ class Algoritmo:
 		global lista3
 		global lista4
 		global lista5
+		global Salida
 		lista1=[]
 		lista2=[]
 		lista3=[]
 		lista4=[]
 		lista5=[]
 		list=[]
+		Salida=""
 		carga = algoritmo
 		if re.match("\ufeff",carga) != None:
 			carga = re.sub("\ufeff","",carga,1)
@@ -308,6 +311,7 @@ class Algoritmo:
 				print(lista2[i])
 				print("Hilera Resultante: ")
 				sustitucion = self.sustituirRegla(patronEncontrado,lista2[i],hilera)
+				
 				#print(sustitucion)
 				#print("ReglaTerminal")
 				#print(self.ReglaTerminal())
@@ -360,6 +364,8 @@ class Algoritmo:
 			sustitucion=""
 			aplico =False
 		return Salida
+		
+		
 		
 #a = Algoritmo()
 #hilera = """abc

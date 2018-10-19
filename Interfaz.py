@@ -10,6 +10,8 @@ def insertar():
 	if(ruta != None):
 		if(input != ''):
 			text.delete('1.0', END)
+			text2.delete('1.0', END)
+			text3.delete('1.0', END)
 		carga = archivo.cargarAlgoritmo(ruta)
 		text.insert(INSERT,carga)
 	else:
@@ -27,14 +29,18 @@ def insertarHileras():
 
 #guarda lo que tiene algoritmo y lo pasa a evaluar
 def guardarAlgortimo():
+	input = text3.get("1.0",END)
+	if(input != ''):
+		text3.delete('1.0', END)
 	algoritmo = Algoritmo.Algoritmo()
 	datos = text.get('1.0', END)
-	algoritmo.CargarLista(datos)
+	if len(datos)> 1:
+		algoritmo.CargarLista(datos)
 	datos2 = text2.get('1.0', END)
 	if len(datos2)> 1:
 		algoritmo.evaluar(datos2)
 		salida = algoritmo.ListaaEvaluar()
-		text3.delete(1.0,END)
+		#text3.delete(1.0,END)
 		text3.insert(END,salida)
 	else:
 		print("Digite una hilera o escoja un archivo")
