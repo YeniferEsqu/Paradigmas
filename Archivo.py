@@ -13,3 +13,15 @@ class Archivo:
 		extension = ['*.txt']
 		abrir = eg.fileopenbox(msg="Abrir archivo",title="Abrir Algoritmo",filetypes=extension)
 		return abrir
+		
+#Para guardar el archivo 
+	def guardarArchivo(self):
+		extension = ['*.txt']
+		guardar = eg.filesavebox(msg="Guardar archivo",title="Guardar Salida",filetypes=extension)
+		return guardar
+	
+#Para guardar el resultado de aplicar las reglas
+	def guardarSalida(self,ruta, hilera):
+		archivo = open(ruta, "w",encoding="utf-8")
+		archivo.write(hilera) 
+		archivo.close() 

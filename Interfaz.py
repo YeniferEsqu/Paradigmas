@@ -2,8 +2,6 @@ from tkinter import *
 import Archivo
 import Algoritmo
 
-
-
 #Insertar el algoritmo el la caja de texto
 def insertar():
 	archivo = Archivo.Archivo()
@@ -47,6 +45,12 @@ def guardarAlgortimo():
 	else:
 		print("Digite una hilera o escoja un archivo")
 
+def guardarResultado():
+	archivo = Archivo.Archivo()
+	ruta =archivo.guardarArchivo()
+	input = text3.get("1.0",END)
+	if(ruta != None):
+		archivo.guardarSalida(ruta,input)
 
 def letrasGriegas(letra):
 	if letra =="α": 
@@ -148,7 +152,7 @@ boton2.place(x = 1050, y = 160)
 boton3 = Button(root,text="Aplicar Reglas ", command=guardarAlgortimo, font=("Tahoma", 14),justify =CENTER, relief =RAISED, bd=3)
 boton3.place(x = 1050, y = 220)
 
-boton4 = Button(root,text="Guardar Salida", font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
+boton4 = Button(root,text="Guardar Salida", command=guardarResultado, font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
 boton4.place(x = 1050, y = 280)
 
 #alfabeto griego botones
