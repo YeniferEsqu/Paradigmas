@@ -1,0 +1,90 @@
+%Realizar una multiplicación de números binarios arbitrarios
+#symbols 01*
+#vars xyzw
+#markers XABMSUEQLÑWKVO/#PC
+
+M1 -> 1AM
+M0 -> 0BM
+Q1 -> 1BQ
+Q0 -> 0BQ
+A1 -> 1A
+A0 -> 0A
+B1 -> 1B
+B0 -> 0B
+AM -> MA
+BM -> MB
+BQ -> QB
+1M->1SUE
+0M->0SUE
+1Q->1SUL
+0Q->0SUL
+EB -> 0E
+EA -> 1E
+LB -> 0L
+E->Λ
+L->Λ
+SU->+
+1*->*M
+0*->*Q
+*1->*
+*0->*
+//->.
+*+->Ñ
+Ñ1 ->1Ñ
+Ñ0 ->0Ñ
+Ñ+ ->+Ñ
+Ñ->WO
+1W->W1
+0W->W0
+1X->X1
+0X->X0
+0V->V0
+1V->V1
++W->0XV#
++X->0XV#
+#V->0V#
++W->0XV+
++X->0XV+
++V->0V+
+X->Λ
+V->Λ
+S10->0S1
+S01->1S0
+S00->0S0
+S11->1S1
+/#1S0C->C1
+/#0S1C->C1
+/#1S1C->PC0
+/#0S0C->0C
+0S0PC->C1
+0S1PC->PC0
+1S0PC->PC0
+1S1PC->PC1
+1S1C->PC0
+0S0C->C0
+0S1C->C1
+1S0C->C1
+/#S1PC->PC0
+/#S0PC->C1
+1S0->C1
+0S1->C1
+1S1->PC0
+0S0->C0
+S1C->C1
+S0C->C0
+1/#->/#S1
+0/#->/#S0
+/#->Λ
+1PC->PC0
+0PC->C1
+1C->C1
+0C->C0
+C->Λ
+P->1
+1#->/#S1
+0#->/#S0
+/#C->Λ
+/#PC->1
+PC->1
+C->Λ
+O->Λ.

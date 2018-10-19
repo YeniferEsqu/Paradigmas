@@ -62,7 +62,7 @@ class Algoritmo:
 		lista3=[]
 		lista4=[]
 		lista5=[]
-		list=[]
+		lista=[]
 		Salida=""
 		carga = algoritmo
 		if re.match("\ufeff",carga) != None:
@@ -72,19 +72,19 @@ class Algoritmo:
 		for line in carga.splitlines():			
 			if(len(line) > 1 and line[0] is not ' '):
 				if(line[0] != '%'):
-				    list.append(line)
+				    lista.append(line)
 
 #saber el tamaño de la lista
-		list_len = len(list)
+		list_len = len(lista)
 #Listas para guardar las reglas, variables, simbolos, marcadores
 		
-		for x in range(list_len):
-			caracter = list[x]
-			car = caracter[0]
+		for x in lista:
+			caracter = x
+			#car = caracter[0]
 			
 #si tiene symbols en la linea, lo guarda en la lista3
 			if(caracter.find("#symbols") is not -1):
-				simb = list[x].split(" ")
+				simb = x.split(" ")
 				palabra = simb[1]
 				for y in range(len(palabra)):
 					lista3.append(palabra[y])
@@ -92,7 +92,7 @@ class Algoritmo:
 #si tiene vars en la linea, lo guarda en la lista4
 			elif(caracter.find("#vars") is not -1):
 				#print("Entro3")
-				simb = list[x].split(" ")
+				simb = x.split(" ")
 				palabra = simb[1]
 				for y in range(len(palabra)):
 					lista4.append(palabra[y])
@@ -100,14 +100,14 @@ class Algoritmo:
 #si tiene markers en la linea, lo guarda en la lista5
 			elif(caracter.find("#markers") is not -1):
 				#print("Entro5")
-				simb = list[x].split(" ")
+				simb = x.split(" ")
 				palabra = simb[1]
 				for y in range(len(palabra)):
 					lista5.append(palabra[y])
 			
 #sino las reglas las guarda en lista2 y lista1
 			else:
-				simb = list[x].split("->")
+				simb = x.split("->")
 				lista1.append(simb[0])
 				lista2.append(simb[1])
 	

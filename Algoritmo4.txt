@@ -1,8 +1,9 @@
 %Binario a unario
 #symbols 01
-#vars xy
+#vars xyz
 #markers |
 
 |0->0||
 1->0|
-0->Λ.
+0->Λ
+Λ->.
