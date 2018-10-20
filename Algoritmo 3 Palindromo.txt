@@ -1,0 +1,12 @@
+%Algoritmo 3	
+%Palindromo
+#symbols abcdefghijklmnopqrstuvwxyz0123456789  
+#vars XYVERDADEROFALSO
+#markers αβ
+
+βX->Xβ
+αXXβ-> VERDADERO.
+αXβ -> VERDADERO.
+αXYβ-> FALSO.
+αXY-> αX
+X->αβX

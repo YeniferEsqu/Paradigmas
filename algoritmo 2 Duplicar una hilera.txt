@@ -5,5 +5,5 @@
 #markers β
 
 βX -> XXβ
-XXβ -> X.
+XXβ -> XX.
 X -> βX

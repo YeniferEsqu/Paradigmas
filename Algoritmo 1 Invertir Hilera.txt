@@ -1,0 +1,12 @@
+﻿%Algoritmo 1	
+%Invertir una hilera
+#symbols abcdefghijklmnopqrstuvwxyz0123456789  
+#vars XY
+#markers αβ
+
+βα→Λ.
+βXα->αX
+βXX->XβX
+βXY->YβX
+βX->αX
+X->βX
