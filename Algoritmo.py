@@ -24,6 +24,7 @@ class Algoritmo:
 	variablesUsadas=[]
 	
 	
+	
 
 	#lista1=["P1: βX","P2: Xβ","P3: X"]
 	#lista2=["Xβ (P1)","Λ.","βX (P1)"]
@@ -67,7 +68,7 @@ class Algoritmo:
 		carga = algoritmo
 		flecha = "\u2192"
 		flecha = u"{}".format(flecha)
-		
+
 		if re.match("\ufeff",carga) != None:
 			carga = re.sub("\ufeff","",carga,1)
 
@@ -109,19 +110,18 @@ class Algoritmo:
 					lista5.append(palabra[y])
 			
 #sino las reglas las guarda en lista2 y lista1
-			elif(caracter.find("->") is not -1): 
-				simb = list[x].split("->")
-				print(flecha)
+			elif(caracter.find("->") is not -1):
+				simb = x.split("->")
 				lista1.append(simb[0])
 				lista2.append(simb[1])
-#para el unicode de flecha
+			
 			elif(caracter.find(flecha) is not -1):
-				simb = list[x].split(flecha)
+				simb = x.split(flecha)
 				print(flecha)
 				lista1.append(simb[0])
 				lista2.append(simb[1])
-			else:
-				continue
+			
+	
 	#metodo para agarrar lo del campo de texto y comprobar que esta en el alfabeto
 	def estaenlalista(self, cadena):
 		global lista3

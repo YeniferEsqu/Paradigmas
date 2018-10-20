@@ -73,7 +73,7 @@ def letrasGriegas(letra):
 		text.insert(INSERT,letra)
 	if letra =="κ": 
 		text.insert(INSERT,letra)
-	if letra =="λ": 
+	if letra =="Λ": 
 		text.insert(INSERT,letra)
 	if letra =="μ": 
 		text.insert(INSERT,letra)
@@ -186,7 +186,7 @@ alfabeto9.place(x = 1110, y = 500)
 alfabeto10 = Button(root,text="κ", command=lambda:letrasGriegas("κ"), font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
 alfabeto10.place(x = 1139, y = 500)
 
-alfabeto11 = Button(root,text="λ", command=lambda:letrasGriegas("λ"), font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
+alfabeto11 = Button(root,text="Λ", command=lambda:letrasGriegas("Λ"), font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
 alfabeto11.place(x = 1169, y = 500)
 
 alfabeto12 = Button(root,text="μ", command=lambda:letrasGriegas("μ"), font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
