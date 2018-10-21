@@ -1,0 +1,10 @@
+%Algoritmo 11
+%Elimina el ultimo caracter de la hilera
+
+#symbols abcdefghijklmnopqrstuvwxyz0123456789  
+#vars X
+#markers β
+
+P1: βX->Xβ  (P1)
+P2: Xβ->Λ.
+P3: X->βX    (P1)

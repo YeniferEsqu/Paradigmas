@@ -1,4 +1,29 @@
-﻿# -*- coding: utf-8 -*-
+﻿#-------------------------------------------------------------------------------------
+#Proyecto #1
+#Integrantes: 
+	#Kimberly Esquivel Reyes
+	#Yenifer Esquivel Reyes
+	#Juan Pablo Campos León
+#Curso
+	#Paradigmas de Programacion
+#Ciclo Lectivo 2018
+#Descripcion del Proyecto
+	#Programa desarollado en Python, utilizando la interfaz grafica Tkinter.
+	#El programa permite abrir y editar y guardar algoritmos, para luego
+	#ser ejecutados con hileras de prueba. Las hileras se pueden escribir en
+	#la caja de texto, o bien, cargarlas desde un archivo de texto. 
+	#Una vez que se ejecuten las reglas para cada hilera, estas se mostraran
+	#en la caja de texto de Salida.
+	#Para guardar el algoritmo se debe poner la extension .txt para poder abrirlo
+	#con cualquier editor de texto.
+#-------------------------------------------------------------------------------------
+
+#Esta clase se encarga de toda la logica del programa. En ella se guardan los algoritmos
+#y las hileras para ser evaluadas. Utilizamos el modulo re que nos permite encontrar
+#patrones, para aplicarselos a las hileras. 
+#Esta tambien nos permite evaluar si las hileras de prueba estan dentro de los simbolos,
+#si no es asi ignora la hilera.
+
 import re
 class Algoritmo:
 #variables globales
@@ -8,49 +33,26 @@ class Algoritmo:
 	global lista4 #variables
 	global lista5 #marcadores
 	global caracteresEspeciales
-	global listadef
+	global listadef #lista de las hileras aceptadas de acuerdo a los simbolos
 	global variablesUsadas  #lista auxiliar para almacenar las variable que utiliza una regla y su posicion en dicha cadena
-	global etiquetaInicio
-	global hileraSustituida
+	global etiquetaInicio #si los algoritmos tienen etiqueta de inicio
+	global hileraSustituida 
 	global terminal 
-	global sustitucion
-	global reglaAplicada
-	global aplico
-	global Salida
+	global sustitucion #agarra la salida de hacer una regla
+	global aplico #saber si aplico alguna regla
+	global Salida #muestra el resultado de aplicar una regla
 
+	#inicializar las variables globales
 	Salida = ""
 	caracteresEspeciales = ["(",")","+",".","$","*","?","[","]","{","}","|"]
 	etiquetaInicio = None
 	variablesUsadas=[]
-	
-	
-	
-
-	#lista1=["P1: βX","P2: Xβ","P3: X"]
-	#lista2=["Xβ (P1)","Λ.","βX (P1)"]
-	#lista3=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9"]
-	#lista4=["X"]
-	#lista5=["β"]
-	#lista1=["(())","())","(()","()","(α","α)",")","(","αα","α" ]
-	#lista2=["()","α)","(α","VALIDO.","α","α","α","α","α","INVALIDO."]
-	#lista3=["(",")"]
-	#lista4=["I","N","V","A","L","I","D","O"]
-	#lista5=["α"]
 	listadef=[]
 	terminal = False
 	sustitucion=""
 	aplico =False
-	
 
-
-#devuelve posicion de regla terminal	
-	def ReglaTerminal(self):
-		global lista2
-		for x in lista2:
-			if(x.find(".")== 1):
-				terminal2 = x
-				return terminal2
-				
+#cargar en las listas los simbolos, variables, las reglas
 	def CargarLista(self, algoritmo):
 		global lista1
 		global lista2
@@ -66,6 +68,7 @@ class Algoritmo:
 		lista=[]
 		Salida=""
 		carga = algoritmo
+		#para la flecha en unicode
 		flecha = "\u2192"
 		flecha = u"{}".format(flecha)
 
@@ -78,13 +81,9 @@ class Algoritmo:
 				if(line[0] != '%'):
 				    lista.append(line)
 
-#saber el tamaño de la lista
-		list_len = len(lista)
-#Listas para guardar las reglas, variables, simbolos, marcadores
-		
+#Listas para guardar las reglas, variables, simbolos, marcadores		
 		for x in lista:
 			caracter = x
-			#car = caracter[0]
 			
 #si tiene symbols en la linea, lo guarda en la lista3
 			if(caracter.find("#symbols") is not -1):
@@ -122,7 +121,7 @@ class Algoritmo:
 				lista2.append(simb[1])
 			
 	
-	#metodo para agarrar lo del campo de texto y comprobar que esta en el alfabeto
+#metodo para agarrar lo del campo de texto de las hileras y comprobar que esta en el alfabeto
 	def estaenlalista(self, cadena):
 		global lista3
 		esta = 0
@@ -132,10 +131,8 @@ class Algoritmo:
 		for x in range(0,tamano):
 			if hil[x] in lista3:
 				esta = esta + 1
-
 		if(esta == tamano):
-			res = 1
-		
+			res = 1		
 		return res
 		
 #verifica que las hileras coincidan con los simbolos
@@ -145,20 +142,19 @@ class Algoritmo:
 		global listadef
 		listadef = []
 		num=0
-		#inserta todo lo que tiene el campo de texto de las hileras en la lista
+#inserta todo lo que tiene el campo de texto de las hileras en la lista
 		for line in cadena.splitlines():			
 			if(len(line) > 1 and line[0] is not ' '):
 					lista.append(line)
-		#print(lista)
-		
-		#si cada hilera esta en la lista la inserta, sino no
+
+#si cada hilera esta en la lista la inserta, sino no
 		for x in lista:
 			if (self.estaenlalista(x) == 1):
 				listadef.append(x)
 				num = num + 1
 		return listadef
 
-	#metodo que busca si existe una etiqueta 
+#metodo que busca si existe una etiqueta 
 	def buscaEtiqueta(self,regla):
 		etiqueta = re.match("(.+?)+:" , regla)
 		if (etiqueta != None):
@@ -169,7 +165,7 @@ class Algoritmo:
 			return None
 	
 #metodo que busca si existe una etiqueta al final de una regla 
-# y la asigna a su correspondiente variable global
+#y la asigna a su correspondiente variable global
 	def buscaEtiquetaInicio(self,reglaSustitucion):
 		global etiquetaInicio
 		etiqueta = re.search("([(].+?[)])$" , reglaSustitucion)
@@ -271,8 +267,7 @@ class Algoritmo:
 		if etiqueta != None:
 			etiqueta = "[(]"+etiqueta+"[)]"
 			reglaSustitucion = re.sub(etiqueta,"",reglaSustitucion)
-		
-		
+				
 		sustitucion = ""
 		tam = len(reglaSustitucion)
 		tam1 = len(variablesUsadas)
@@ -299,7 +294,7 @@ class Algoritmo:
 			patronEncontrado = "["+patronEncontrado+"]"
 		return re.sub(patronEncontrado,sustitucion,hilera,1)
 
-#aplica las reglas 1 vez 
+#metodo que aplica las reglas 1 vez y devuelve el resultado
 	def SustituirCadena(self,hilera):
 		tam = len(lista1)
 		global aplico
@@ -322,17 +317,10 @@ class Algoritmo:
 				print(lista2[i])
 				print("Hilera Resultante: ")
 				sustitucion = self.sustituirRegla(patronEncontrado,lista2[i],hilera)
-				
-				#print(sustitucion)
-				#print("ReglaTerminal")
-				#print(self.ReglaTerminal())
 				aplico = True
-				#if(self.ReglaTerminal() == lista2[i]):
-					#terminal = True
 				break
-		#print("sustitucion  "+sustitucion)
 		if sustitucion == None:
-			Salida = Salida + "HA OCURRIDO UN ERROR" + "\n"
+			Salida = Salida + "No se pueden aplicar mas reglas" + "\n"
 			terminal = True
 		else:
 			Salida = Salida + sustitucion + "\n"
@@ -360,36 +348,18 @@ class Algoritmo:
 
 #metodo que recorre la listaDefinidos y la evalua para aplicar las reglas
 	def ListaaEvaluar(self):
-		#listaDefinidos = []
 		global terminal 
 		global sustitucion
 		global aplico
 		global listadef
 		global Salida
-		#listaDefinidos = self.evaluar(hilera)
 		for i in listadef:
 			self.CambiaHilera(i)
-			#print(listaDefinidos)
 			print("\n")
 			terminal = False
 			sustitucion=""
 			aplico =False
 		return Salida
-		
-		
-		
-#a = Algoritmo()
-#hilera = """abc
-#nop
-#asd
-#cvb"""
-
-#hilera = """((()))
-#(())
-#()))
-#((("""
-#a.ListaaEvaluar(hilera)
-
 
 	
 

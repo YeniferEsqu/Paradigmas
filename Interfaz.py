@@ -1,3 +1,32 @@
+#-------------------------------------------------------------------------------------
+#Proyecto #1
+#Integrantes: 
+	#Kimberly Esquivel Reyes
+	#Yenifer Esquivel Reyes
+	#Juan Pablo Campos León
+#Curso
+	#Paradigmas de Programacion
+#Ciclo Lectivo 2018
+#Descripcion del Proyecto
+	#Programa desarollado en Python, utilizando la interfaz grafica Tkinter.
+	#El programa permite abrir y editar y guardar algoritmos, para luego
+	#ser ejecutados con hileras de prueba. Las hileras se pueden escribir en
+	#la caja de texto, o bien, cargarlas desde un archivo de texto. 
+	#Una vez que se ejecuten las reglas para cada hilera, estas se mostraran
+	#en la caja de texto de Salida.
+	#Para guardar el algoritmo se debe poner la extension .txt para poder abrirlo
+	#con cualquier editor de texto.
+#-------------------------------------------------------------------------------------
+
+#Esta clase es la encargada de toda la parte visual del programa.
+#En ella encontramos botones, titulos y cajas de texto para guardar ver los algoritmos,
+#hileras de prueba y resultados. En esta se muestra el algoritmo que elegimos, asi
+#como las hileras de prueba, para luego ejecutarlas y observar en la caja de texto
+#los resultados de aplicar una serie de reglas. 
+#Tambien para editar los algoritmos tenemos el alfabeto griego en el que las letras se
+#ponen solo en el recuadro del algoritmo, para editarlo.
+#Utlizamos el modulo tkinter que nos permite hacer la interfaz grafica. 
+
 from tkinter import *
 import Archivo
 import Algoritmo
@@ -16,7 +45,8 @@ def insertar():
 		text.insert(INSERT,carga)
 	else:
 		print("no escogio ruta")
-#Insertar las hileras de prueba
+		
+#Insertar las hileras de prueba en la caja de texto
 def insertarHileras():
 	archivo = Archivo.Archivo()
 	ruta =archivo.abrirArchivo()
@@ -45,13 +75,15 @@ def guardarAlgortimo():
 	else:
 		print("Digite una hilera o escoja un archivo")
 
+#guardar la salida de hacer los algoritmos
 def guardarResultado():
 	archivo = Archivo.Archivo()
 	ruta =archivo.guardarArchivo()
-	input = text3.get("1.0",END)
+	input = text.get("1.0",END)
 	if(ruta != None):
 		archivo.guardarSalida(ruta,input)
 
+#agregar letras griegas a la caja de texto
 def letrasGriegas(letra):
 	if letra =="α": 
 		text.insert(INSERT,letra)
@@ -105,9 +137,9 @@ def letrasGriegas(letra):
 #ventana
 root = Tk()
 root.title('Algoritmos de Markov')
+
 #tamaño de la ventana
 root.geometry("1350x700+0+0")
-#root.config(width = 1300, height = 650)
 root.configure(background='SkyBlue2')
 
 #titulo de la ventana
@@ -152,7 +184,7 @@ boton2.place(x = 1050, y = 160)
 boton3 = Button(root,text="Aplicar Reglas ", command=guardarAlgortimo, font=("Tahoma", 14),justify =CENTER, relief =RAISED, bd=3)
 boton3.place(x = 1050, y = 220)
 
-boton4 = Button(root,text="Guardar Salida", command=guardarResultado, font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
+boton4 = Button(root,text="Guardar Algoritmo", command=guardarResultado, font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
 boton4.place(x = 1050, y = 280)
 
 #alfabeto griego botones
@@ -228,6 +260,7 @@ alfabeto23.place(x = 1169, y = 600)
 alfabeto24 = Button(root,text="ω", command=lambda:letrasGriegas("ω"), font=("Tahoma", 14 ), justify =CENTER, relief =RAISED, bd=3)
 alfabeto24.place(x = 1199, y = 600)
 
+#borrar el texto al cargar la ventana
 text.delete('1.0', END)
 text2.delete('1.0', END)
 text3.delete('1.0', END)
